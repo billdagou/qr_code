@@ -32,7 +32,7 @@ class QrCodeViewHelper extends AbstractViewHelper {
 
             if ($this->arguments['logo']) {
                 $qrCode->setLogoPath(Environment::getPublicPath().'/'.$this->arguments['logo']->getPublicUrl());
-                $qrCode->setLogoSize(150, 200);
+                $qrCode->setLogoSize(100, 100);
             }
 
             $qrCode->writeFile(Environment::getPublicPath().'/'.$folder->getPublicUrl().$filename);
