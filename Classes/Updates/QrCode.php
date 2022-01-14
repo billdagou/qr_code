@@ -24,7 +24,7 @@ class QrCode implements UpgradeWizardInterface {
      * @return string
      */
     public function getDescription(): string {
-        return '';
+        return 'The extension "qr_code" provides a ViewHelper to generate the QR code.';
     }
 
     /**
@@ -45,7 +45,7 @@ class QrCode implements UpgradeWizardInterface {
      * @return bool
      */
     public function updateNecessary(): bool {
-        return GeneralUtility::makeInstance(ResourceFactory::class)
+        return !GeneralUtility::makeInstance(ResourceFactory::class)
             ->getDefaultStorage()
                 ->hasFolder('qr_code');
     }
