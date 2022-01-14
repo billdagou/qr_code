@@ -23,7 +23,7 @@ class QrCodeViewHelper extends AbstractViewHelper {
             ->getDefaultStorage()
                 ->getFolder('qr_code');
 
-        return $folder->getPublicUrl(TRUE).$filename;
+        return Environment::getPublicPath().'/'.$folder->getPublicUrl().$filename;
 
         if (!$folder->hasFile($filename)) {
             $qrCode = new QrCode($this->arguments['data'] ?? $this->renderChildren());
