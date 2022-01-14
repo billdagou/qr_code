@@ -13,11 +13,9 @@ First of all, you need to install [QR Code](https://github.com/endroid/qr-code) 
 
 After that, you can use the viewhelper to generate the QR code.
 
-    <df:http.download>
-        <phpword:http.download.word>...</phpword:http.download.word>
-    </df:http.download>
+    <f:image src="{qrcode:qrCode(data: '...')}" />
 
 #### Attributes
 
-- `phpWord` ([PhpWord](https://github.com/PHPOffice/PHPWord/blob/develop/src/PhpWord/PhpWord.php)) PhpWord instance.
-- `writer` (string) Writer name, `Word2007`, `ODText`, `RTF`, `HTML`, `PDF`. Default `Word2007`.
+- `data` (string) The data of the QR code.
+- `logo` (FileReference) File reference of logo.
