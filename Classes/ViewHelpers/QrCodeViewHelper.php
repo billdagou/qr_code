@@ -27,7 +27,6 @@ class QrCodeViewHelper extends AbstractViewHelper {
             $qrCode = new QrCode($this->arguments['data'] ?? $this->renderChildren());
 
             $qrCode->setWriterByName('png');
-            $qrCode->setEncoding('UTF-8');
 
             $qrCode->writeFile(Environment::getPublicPath().'/'.$folder->getPublicUrl().$filename);
         }
