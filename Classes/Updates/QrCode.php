@@ -2,21 +2,10 @@
 namespace Dagou\QrCode\Updates;
 
 use TYPO3\CMS\Core\Resource\ResourceFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 class QrCode implements UpgradeWizardInterface {
-    /**
-     * @var \TYPO3\CMS\Core\Resource\ResourceFactory
-     */
-    protected $resourceFactory;
-
-    /**
-     * @param \TYPO3\CMS\Core\Resource\ResourceFactory $resourceFactory
-     */
-    public function __construct(ResourceFactory $resourceFactory) {
-        $this->resourceFactory = $resourceFactory;
-    }
-
     /**
      * @return string
      */
@@ -45,8 +34,9 @@ class QrCode implements UpgradeWizardInterface {
      * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
      */
     public function executeUpdate(): bool {
-        $this->resourceFactory->getDefaultStorage()
-            ->createFolder('qr_code');
+        GeneralUtility::makeInstance(ResourceFactory::class)
+            ->getDefaultStorage()
+                ->createFolder('qr_code');
 
         return TRUE;
     }
@@ -55,8 +45,9 @@ class QrCode implements UpgradeWizardInterface {
      * @return bool
      */
     public function updateNecessary(): bool {
-        return $this->resourceFactory->getDefaultStorage()
-            ->hasFolder('qr_code');
+        return GeneralUtility::makeInstance(ResourceFactory::class)
+            ->getDefaultStorage()
+                ->hasFolder('qr_code');
     }
 
     /**
