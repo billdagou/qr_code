@@ -3,6 +3,7 @@ namespace Dagou\QrCode\ViewHelpers;
 
 use Endroid\QrCode\QrCode;
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -10,6 +11,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 class QrCodeViewHelper extends AbstractViewHelper {
     public function initializeArguments() {
         $this->registerArgument('data', 'string', 'Data of the QR code.');
+        $this->registerArgument('logo', FileReference::class, 'Logo');
     }
 
     /**
@@ -27,6 +29,10 @@ class QrCodeViewHelper extends AbstractViewHelper {
             $qrCode = new QrCode($this->arguments['data'] ?? $this->renderChildren());
 
             $qrCode->setWriterByName('png');
+
+            if ($this->arguments['logo']) {
+                $qrCode->setLogoPath(Environment::getPublicPath().'/'.$this->arguments['logo']->getPublicUrl());
+            }
 
             $qrCode->writeFile(Environment::getPublicPath().'/'.$folder->getPublicUrl().$filename);
         }
