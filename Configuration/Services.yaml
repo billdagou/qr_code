@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Dagou\QrCode\Updates\Qrcode:
+        public: true
+
+    Dagou\QrCode\:
+        resource: '../Classes/*'
