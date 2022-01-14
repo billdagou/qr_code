@@ -10,8 +10,8 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class QrCodeViewHelper extends AbstractViewHelper {
     public function initializeArguments() {
-        $this->registerArgument('data', 'string', 'Data of the QR code.');
-        $this->registerArgument('logo', FileReference::class, 'Logo');
+        $this->registerArgument('data', 'string', 'Data of the QR code');
+        $this->registerArgument('logo', FileReference::class, 'File reference of logo');
     }
 
     /**
