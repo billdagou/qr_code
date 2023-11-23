@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = [
     'autoload' => [
         'classmap' => [
             'Classes',
-            'Resources/Private/MkDir',
+            'Resources/Private/QrCode',
         ],
     ],
 ];
