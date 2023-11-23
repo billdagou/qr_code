@@ -11,9 +11,9 @@ First of all, you need to install [QR Code](https://github.com/endroid/qr-code) 
     cd typo3conf/ext/qr_code/Resources/Private/QrCode/
     composer install --no-dev --prefer-dist
 
-After that, you can use the viewhelper to generate the QR code.
+After that, you can use the ViewHelper to generate the QR code.
 
-    <f:image src="{qrcode:qrCode(data: '...')}" />
+    <f:image src="{qrcode:generate(data: '...')}" />
 
 #### Attributes
 

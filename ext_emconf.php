@@ -5,17 +5,17 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'misc',
     'author' => 'Bill.Dagou',
     'author_email' => 'billdagou@gmail.com',
-    'version' => '3.9.0',
+    'version' => '5.0.0',
     'state' => 'stable',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.4.0-10.4.99',
+            'typo3' => '12.4.0-12.4.99',
         ],
     ],
     'autoload' => [
         'classmap' => [
             'Classes',
-            'Resources/Private/QrCode',
+            'Resources/Private/MkDir',
         ],
     ],
 ];
