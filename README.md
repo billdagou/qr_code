@@ -18,4 +18,7 @@ After that, you can use the ViewHelper to generate the QR code.
 #### Attributes
 
 - `data` (string) The data of the QR code.
+- `size` (int) The size of the QR code.
+- `margin` (int) The margin size.
 - `logo` (FileReference) File reference of logo.
+- `logoSize` (int) The size of the logo.

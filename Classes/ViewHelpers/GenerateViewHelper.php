@@ -1,6 +1,7 @@
 <?php
 namespace Dagou\QrCode\ViewHelpers;
 
+use Endroid\QrCode\ErrorCorrectionLevel;
 use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
@@ -14,7 +15,10 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 class GenerateViewHelper extends AbstractViewHelper {
     public function initializeArguments(): void {
         $this->registerArgument('data', 'string', 'Data of the QR code');
+        $this->registerArgument('size', 'int', 'Size of the QR code');
+        $this->registerArgument('margin', 'int', 'Margin size');
         $this->registerArgument('logo', FileReference::class, 'File reference of logo');
+        $this->registerArgument('logoSize', 'int', 'Size of the logo');
     }
 
     /**
@@ -35,13 +39,25 @@ class GenerateViewHelper extends AbstractViewHelper {
                 ->getFolder('qr_code');
 
         if ($folder->hasFile($filename) === FALSE) {
-            $qrCode = QrCode::create($arguments['data']);
+            $qrCode = QrCode::create($arguments['data'] ?? $renderChildrenClosure());
+
+            if ($arguments['size'] ?? FALSE) {
+                $qrCode->setSize($arguments['size']);
+            }
+
+            if ($arguments['margin'] !== NULL) {
+                $qrCode->setMargin($arguments['margin']);
+            }
 
             if ($arguments['logo'] ?? FALSE) {
-                $logo = Logo::create(Environment::getPublicPath().'/'.$arguments['logo']->getPublicUrl())
-                    ->setResizeToWidth(50)
-                    ->setResizeToHeight(50)
-                    ->setPunchoutBackground(TRUE);
+                $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::High);
+
+                $logo = Logo::create(Environment::getPublicPath().'/'.$arguments['logo']->getPublicUrl());
+
+                if ($arguments['logoSize'] ?? FALSE) {
+                    $logo->setResizeToWidth($arguments['logoSize'])
+                        ->setResizeToHeight($arguments['logoSize']);
+                }
             }
 
             (new PngWriter())->write($qrCode, $logo ?? NULL)
