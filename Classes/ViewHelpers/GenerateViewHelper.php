@@ -1,6 +1,7 @@
 <?php
 namespace Dagou\QrCode\ViewHelpers;
 
+use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\ErrorCorrectionLevel;
 use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\QrCode;
@@ -19,6 +20,7 @@ class GenerateViewHelper extends AbstractViewHelper {
         $this->registerArgument('margin', 'int', 'Margin size');
         $this->registerArgument('logo', FileReference::class, 'File reference of logo');
         $this->registerArgument('logoSize', 'int', 'Size of the logo');
+        $this->registerArgument('logoMargin', 'int', 'Margin size of the logo');
     }
 
     /**
@@ -52,11 +54,17 @@ class GenerateViewHelper extends AbstractViewHelper {
             if ($arguments['logo'] ?? FALSE) {
                 $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::High);
 
-                $logo = Logo::create(Environment::getPublicPath().'/'.$arguments['logo']->getPublicUrl());
+                $logo = Logo::create(Environment::getPublicPath().'/'.$arguments['logo']->getPublicUrl())
+                    ->setPunchoutBackground(TRUE)
+                    ->setBackgroundColor(new Color(255, 255, 255));
 
                 if ($arguments['logoSize'] ?? FALSE) {
                     $logo->setResizeToWidth($arguments['logoSize'])
                         ->setResizeToHeight($arguments['logoSize']);
+                }
+
+                if ($arguments['logoMargin'] !== NULL) {
+                    $logo->setMargin($arguments['logoMargin']);
                 }
             }
 
